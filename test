@@ -1,3 +1,12 @@
+import subprocess
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Instala o PyPDF2
+install("PyPDF2")
+
 import PyPDF2
 import pandas as pd
  
@@ -29,5 +38,3 @@ df_final = df_filtered[['nomes']]
  
 # Print the final DataFrame
 print(df_final)
-
-```
