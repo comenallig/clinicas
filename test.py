@@ -1,33 +1,50 @@
-!pip install PyPDF2
+!pip install PyPDF2 pandas openpyxl
 
 import PyPDF2
 import pandas as pd
 
-# Load your PDF file
+# Caminho para o arquivo PDF
 file_path = "ConsultarExtrato.pdf"
-pdf_file = open(file_path, 'rb')
-pdf_reader = PyPDF2.PdfReader(pdf_file)
 
-# Extract text from the PDF
-pages_text = [page.extract_text() for page in pdf_reader.pages if page.extract_text() is not None]
+# Abrir o arquivo PDF
+with open(file_path, 'rb') as pdf_file:
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
 
-# Convert the list of texts to a DataFrame
+    # Extrair texto de todas as páginas do PDF
+    pages_text = []
+    for page in pdf_reader.pages:
+        text = page.extract_text()
+        if text:
+            # Tentar decodificar o texto em várias codificações comuns
+            try:
+                decoded_text = text.encode('latin1').decode('utf-8')
+            except (UnicodeEncodeError, UnicodeDecodeError):
+                try:
+                    decoded_text = text.encode('latin1').decode('iso-8859-1')
+                except (UnicodeEncodeError, UnicodeDecodeError):
+                    decoded_text = text  # Manter o texto original se a decodificação falhar
+            pages_text.append(decoded_text)
+
+# Converter a lista de textos em um DataFrame
 df = pd.DataFrame(pages_text, columns=['text'])
 
-# Split the text into separate lines
+# Dividir o texto em linhas separadas
 df = df['text'].apply(lambda x: x.split('\n')).explode().reset_index(drop=True).to_frame()
 
-# Filter rows containing "2023 |"
-df_filtered = df[df['text'].str.contains("2023 \| [^|]+")]
+# Filtrar linhas que contêm "2023 |"
+df_filtered = df[df['text'].str.contains("2023 \| [^|]+", na=False)].copy()
 
-# Extract names after "2023 |"
-df_filtered['nomes'] = df_filtered['text'].str.extract(r"2023 \| ([^|]+)")
+# Extrair nomes após "2023 |"
+df_filtered.loc[:, 'nomes'] = df_filtered['text'].str.extract(r"2023 \| ([^|]+)", expand=False)
 
-# Trim whitespace from the 'nomes' column
-df_filtered['nomes'] = df_filtered['nomes'].str.strip()
+# Remover espaços em branco do início e fim da coluna 'nomes'
+df_filtered.loc[:, 'nomes'] = df_filtered['nomes'].str.strip()
 
-# Select only the 'nomes' column
+# Selecionar apenas a coluna 'nomes'
 df_final = df_filtered[['nomes']]
 
-# Print the final DataFrame
-print(df_final)
+# Salvar o DataFrame final em um arquivo Excel
+output_file_path = "nomes_extraidos.xlsx"
+df_final.to_excel(output_file_path, index=False, encoding='utf-8')
+
+print(f"Os dados foram salvos no arquivo: {output_file_path}")
