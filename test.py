@@ -1,4 +1,5 @@
-!pip install pdfplumber pandas openpyxl
+pip install pdfplumber-0.5.29-py3-none-any.whl
+
 
 import pdfplumber
 import pandas as pd
