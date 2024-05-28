@@ -1,4 +1,4 @@
-!pip install PyPDF2 pandas openpyxl
+pip install PyPDF2 pandas openpyxl
 
 import PyPDF2
 import pandas as pd
