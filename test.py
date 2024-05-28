@@ -1,28 +1,28 @@
-pip install PyPDF2 pandas openpyxl
+!pip install pdfplumber pandas openpyxl
 
-import PyPDF2
+import pdfplumber
 import pandas as pd
 
 # Caminho para o arquivo PDF
 file_path = "ConsultarExtrato.pdf"
 
-# Abrir o arquivo PDF
-with open(file_path, 'rb') as pdf_file:
-    pdf_reader = PyPDF2.PdfReader(pdf_file)
+# Função para decodificar texto
+def decode_text(text):
+    for encoding in ['utf-8', 'latin1', 'iso-8859-1']:
+        try:
+            return text.encode('latin1').decode(encoding)
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            continue
+    return text  # Retornar o texto original se todas as decodificações falharem
 
+# Abrir o arquivo PDF
+with pdfplumber.open(file_path) as pdf:
     # Extrair texto de todas as páginas do PDF
     pages_text = []
-    for page in pdf_reader.pages:
+    for page in pdf.pages:
         text = page.extract_text()
         if text:
-            # Tentar decodificar o texto em várias codificações comuns
-            try:
-                decoded_text = text.encode('latin1').decode('utf-8')
-            except (UnicodeEncodeError, UnicodeDecodeError):
-                try:
-                    decoded_text = text.encode('latin1').decode('iso-8859-1')
-                except (UnicodeEncodeError, UnicodeDecodeError):
-                    decoded_text = text  # Manter o texto original se a decodificação falhar
+            decoded_text = decode_text(text)
             pages_text.append(decoded_text)
 
 # Converter a lista de textos em um DataFrame
@@ -45,6 +45,6 @@ df_final = df_filtered[['nomes']]
 
 # Salvar o DataFrame final em um arquivo Excel
 output_file_path = "nomes_extraidos.xlsx"
-df_final.to_excel(output_file_path, index=False, encoding='utf-8')
+df_final.to_excel(output_file_path, index=False)
 
 print(f"Os dados foram salvos no arquivo: {output_file_path}")
