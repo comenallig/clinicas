@@ -1,4 +1,7 @@
 # TESTE
+
+streamlit run codigo.py
+
 import subprocess
 import sys
 import importlib
