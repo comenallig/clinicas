@@ -1,6 +1,6 @@
 # TESTE
 
-pip install streamlit pandas PyPDF2 openpyxl xlsxwriter
+install streamlit pandas PyPDF2 openpyxl xlsxwriter
 
 streamlit run codigo.py
 
