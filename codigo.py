@@ -1,4 +1,4 @@
-!pip install streamlit pandas PyPDF2 openpyxl xlsxwriter
+pip install streamlit pandas PyPDF2 openpyxl xlsxwriter
 
 import streamlit as st
 import pandas as pd
