@@ -6,7 +6,6 @@ import io
 import openpyxl
 import xlsxwriter
 
-streamlit run codigo.py
 
 def analisa_dados (pdf_file, xlsx_file):
     ## passo 1: lê o arquivo pdf
