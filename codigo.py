@@ -1,7 +1,5 @@
 # TESTE
 
-install streamlit pandas PyPDF2 openpyxl xlsxwriter
-
 streamlit run codigo.py
 
 # END TESTE
