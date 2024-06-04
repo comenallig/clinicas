@@ -1,6 +1,5 @@
 # TESTE
 
-streamlit run codigo.py
 
 # END TESTE
 
@@ -10,6 +9,9 @@ import PyPDF2
 import io
 import openpyxl
 import xlsxwriter
+
+streamlit run codigo.py
+
 
 
 def analisa_dados (pdf_file, xlsx_file):
