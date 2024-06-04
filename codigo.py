@@ -1,24 +1,8 @@
 # TESTE
 
+pip install streamlit pandas PyPDF2 openpyxl xlsxwriter
+
 streamlit run codigo.py
-
-import subprocess
-import sys
-import importlib
-
-# Função para instalar pacotes
-def install_and_import(package):
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    finally:
-        globals()[package] = importlib.import_module(package)
-
-# Instalar e importar pacotes necessários
-packages = ['streamlit', 'pandas', 'PyPDF2', 'openpyxl', 'xlsxwriter']
-for package in packages:
-    install_and_import(package)
 
 # END TESTE
 
