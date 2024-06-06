@@ -1,4 +1,4 @@
-!pip install openpyxl
+pip install git+https://github.com/mstamy2/PyPDF2.git
 
 import streamlit as st
 import pandas as pd
