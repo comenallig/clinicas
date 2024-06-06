@@ -1,7 +1,10 @@
+pip 
+
 import streamlit as st
 import pandas as pd
 import io
-# obs: instalar também as bibliotecas openpyxl e xlsxwriter
+import openpyxl 
+import xlsxwriter
 
 
 def analisa_dados (pdf_file, xlsx_file):
