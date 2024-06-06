@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import io
-import openpyxl 
-import xlsxwriter
+
 
 
 def analisa_dados (pdf_file, xlsx_file):
