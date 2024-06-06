@@ -1,4 +1,4 @@
-pip install git+https://github.com/comenallig/clinicas/import.py
+git clone https://github.com/comenallig/clinicas/import.py
 
 import streamlit as st
 import pandas as pd
