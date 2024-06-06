@@ -1,8 +1,10 @@
-pip install git+https://github.com/mstamy2/PyPDF2.git
+install PyPDF2
 
 import streamlit as st
 import pandas as pd
+import PyPDF2
 import io
+# obs: instalar também as bibliotecas openpyxl e xlsxwriter
 
 
 def analisa_dados (pdf_file, xlsx_file):
