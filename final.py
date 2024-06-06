@@ -3,7 +3,6 @@ import pandas as pd
 import io
 
 
-
 def analisa_dados (pdf_file, xlsx_file):
     ## passo 1: lê o arquivo pdf
 
