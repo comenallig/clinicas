@@ -1,8 +1,5 @@
-pip install PyPDF2
-
 import streamlit as st
 import pandas as pd
-import PyPDF2
 import io
 # obs: instalar também as bibliotecas openpyxl e xlsxwriter
 
