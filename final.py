@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import io
 
+pip install openpyxl xlsxwriter
+
+import openpyxl
+import xlsxwriter
+
 
 def analisa_dados (pdf_file, xlsx_file):
     ## passo 1: lê o arquivo pdf
